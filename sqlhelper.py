@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 # This file holds helper functions for SQLite3 in Python
 # It specifically is used for converting transmitted data
@@ -11,9 +12,7 @@ import sqlite3
 def createdb(x):
     
     # Create file
-    f = open(x)
-    f.close()
-
+    os.system("touch %s" % x)
     # Connect to SQL Database
     con = sqlite3.connect(x)
     c = con.cursor()
