@@ -8,9 +8,25 @@ from datetime import date
 from datetime import datetime
 import re
 import serial
+import sys
 
-ser = serial.Serial('/dev/ttyUSB0', baudrate=9600)
+FILETYPE = ".txt"
 
+# Try and open serial port
+# Exit function if serial port could not be opened
+try:
+    ser = serial.Serial('/dev/ttyUSB0', baudrate=9600)
+except:
+    print "Could not open Serial Port, restart script."
+    sys.exit()
+
+# Infinite loop for reading serial port
 while (1):
     ser_bytes = ser.readline()
-    print ser_bytes,
+    parse = re.split(r',', ser_bytes, maxsplit=1);
+    dev_name = parse[0]
+    filename = dev_name + FILETYPE
+    f = open(filename, "a")
+    f.write(parse[1])
+    f.close()
+    #print ser_bytes,
