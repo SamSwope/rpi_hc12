@@ -23,10 +23,21 @@ except:
 # Infinite loop for reading serial port
 while (1):
     ser_bytes = ser.readline()
-    parse = re.split(r',', ser_bytes, maxsplit=1);
+    decode_bytes = ser_bytes.decode("UTF-8")
+    parse = re.split(r',', decode_bytes, maxsplit=1);
+
+    # Get date and time for timestamp of transmission
+    today = date.today()
+    curtime = datetime.now()
+    d = today.strftime("%Y-%m-%d")
+    t = curtime.strftime("%H:%M:%S")
+
+    # Get device name and open file for specific device
     dev_name = parse[0]
     filename = dev_name + FILETYPE
     f = open(filename, "a")
-    f.write(parse[1])
+    
+    # Add timestamp to data
+    data = d + "," + t + "," + parse[1]
+    f.write(data)
     f.close()
-    #print ser_bytes,
