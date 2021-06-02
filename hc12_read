@@ -9,6 +9,8 @@ from datetime import datetime
 import re
 import serial
 import sys
+import os
+import sqlite3
 
 FILETYPE = ".txt"
 
@@ -40,4 +42,5 @@ while (1):
     # Add timestamp to data
     data = d + "," + t + "," + parse[1]
     f.write(data)
+    f.write(dev_name)
     f.close()
