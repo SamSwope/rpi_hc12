@@ -11,8 +11,10 @@ import serial
 import sys
 import os
 import sqlite3
+import sqlhelper as h
+import filecheck as check
 
-FILETYPE = ".txt"
+FILETYPE = ".db"
 
 # Try and open serial port
 # Exit function if serial port could not be opened
@@ -26,7 +28,8 @@ except:
 while (1):
     ser_bytes = ser.readline()
     decode_bytes = ser_bytes.decode("UTF-8")
-    parse = re.split(r',', decode_bytes, maxsplit=1);
+    parse = re.split(r',', decode_bytes);
+    parse[5] = parse[5].rstrip() #Remove \r and \n from string
 
     # Get date and time for timestamp of transmission
     today = date.today()
@@ -37,10 +40,19 @@ while (1):
     # Get device name and open file for specific device
     dev_name = parse[0]
     filename = dev_name + FILETYPE
-    f = open(filename, "a")
+    if (check.checkforfile(filename) == False):
+	h.createdb(filename)
     
-    # Add timestamp to data
-    data = d + "," + t + "," + parse[1]
-    f.write(data)
-    f.write(dev_name)
-    f.close()
+    # Format data to be inserted into SQL Database (Data as Tuple)
+    data = (d,t,float(parse[1]),float(parse[2]),float(parse[3]),float(parse[4]),float(parse[5]))
+
+    # Connect to SQL Database
+    con = sqlite3.connect(filename)
+    c = con.cursor()
+
+    # Create table for data
+    c.execute("INSERT INTO data VALUES (?,?,?,?,?,?,?);",data)
+
+    # Close database
+    con.commit()
+    con.close()
