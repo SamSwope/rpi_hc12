@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# Samuel Swope June 2, 2021
+
 # This script will read HC-12-USB data from the serial port
 # and put it into a text file. Each device sending data will
 # have its own text file.
@@ -15,6 +17,8 @@ import sqlhelper as h
 import filecheck as check
 
 FILETYPE = ".db"
+
+cdir = os.getcwd()
 
 # Try and open serial port
 # Exit function if serial port could not be opened
@@ -40,7 +44,7 @@ while (1):
     # Get device name and open file for specific device
     dev_name = parse[0]
     filename = dev_name + FILETYPE
-    if (check.checkforfile(filename) == False):
+    if (check.checkforfile(filename, cdir) == False):
 	h.createdb(filename)
     
     # Format data to be inserted into SQL Database (Data as Tuple)

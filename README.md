@@ -18,6 +18,10 @@ newer versions. The serial port is reading with default settings
 and a baud rate of 9600bps. The program has been tested on a
 RaspberryPi 3B+. 
 
+Instructions: 
+Ensure that SQLite3 is installed. To do this run *sudo apt-get
+install sqlite3*
+
 Notes:
 If there are any problems with the code, email me at
 samuel.swope@maine.edu.
