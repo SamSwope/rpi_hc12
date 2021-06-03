@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # This script will read HC-12-USB data from the serial port
 # and put it into a text file. Each device sending data will
@@ -23,7 +23,7 @@ cdir = os.getcwd()
 try:
     ser = serial.Serial('/dev/ttyUSB0', baudrate=9600)
 except:
-    print "Could not open Serial Port, restart script."
+    print("Could not open Serial Port, restart script.")
     sys.exit()
 
 # Infinite loop for reading serial port
@@ -43,7 +43,7 @@ while (1):
     dev_name = parse[0]
     filename = dev_name + FILETYPE
     if (check.checkforfile(filename, cdir) == False):
-	h.createdb(filename)
+	    h.createdb(filename)
     
     # Format data to be inserted into SQL Database (Data as Tuple)
     data = (d,t,float(parse[1]),float(parse[2]),float(parse[3]),float(parse[4]),float(parse[5]))

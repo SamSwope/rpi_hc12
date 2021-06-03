@@ -6,7 +6,7 @@ import os
 def checkforfile(x, d):
     files = os.listdir(d)
     for f in files:
-	if (f == x):
-	    return True
+	    if f == x:
+	    	return True
     
     return False
