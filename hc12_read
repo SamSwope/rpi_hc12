@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-# Samuel Swope June 2, 2021
-
 # This script will read HC-12-USB data from the serial port
 # and put it into a text file. Each device sending data will
 # have its own text file.

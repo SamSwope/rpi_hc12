@@ -1,7 +1,6 @@
 # rpi_hc12
 
 **University of Maine BioSensors**
-*Samuel Swope*
 
 Description:
 This project is used to record data received by the HC-12-USB

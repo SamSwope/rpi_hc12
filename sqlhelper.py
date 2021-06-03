@@ -1,8 +1,6 @@
 import sqlite3
 import os
 
-# Samuel Swope June 2, 2021
-
 # This file holds helper functions for SQLite3 in Python
 # It specifically is used for converting transmitted data
 # to be inserted in a database
