@@ -11,12 +11,13 @@ import os
 # date TEXT, time TEXT, d1 REAL, d2 REAL, d3 REAL, d4 REAL, d5 REAL
 # NOTE: This file uses a Linux command (touch). Should use this 
 # file for RaspberryPis unless changed
-def createdb(x):
-    
+def createdb(x,d):
+    #File with directory path
+    f = d + "/" +  x
     # Create file
-    os.system("touch %s" % x)
+    os.system("touch %s" % f)
     # Connect to SQL Database
-    con = sqlite3.connect(x)
+    con = sqlite3.connect(f)
     c = con.cursor()
 
     # Create table for data

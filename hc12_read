@@ -42,14 +42,15 @@ while (1):
     # Get device name and open file for specific device
     dev_name = parse[0]
     filename = dev_name + FILETYPE
-    if (check.checkforfile(filename, cdir) == False):
-	    h.createdb(filename)
+    dbdir = cdir + "/db"
+    if (check.checkforfile(filename, dbdir) == False):
+	    h.createdb(filename,dbdir)
     
     # Format data to be inserted into SQL Database (Data as Tuple)
     data = (d,t,float(parse[1]),float(parse[2]),float(parse[3]),float(parse[4]),float(parse[5]))
 
     # Connect to SQL Database
-    con = sqlite3.connect(filename)
+    con = sqlite3.connect(dbdir+"/"+filename)
     c = con.cursor()
 
     # Create table for data
