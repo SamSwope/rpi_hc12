@@ -36,6 +36,7 @@ def index():
 		device = device.rstrip()
 		s = "<a href=\"device_%s.html\">%s</a><br>" % (device, device)
 		ret = ret + Markup(s)
+	f.close()
 	return render_template("index.html", text=ret)
 
 # Dynamic access to each device 
