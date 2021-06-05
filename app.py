@@ -48,6 +48,8 @@ def plot_data(name,num):
 	con = sqlite3.connect(f)
 	c = con.cursor()
 	date, d1, d2, d3, d4, d5 = getdata(c)
+	con.close()
+
 	if num == 1:
 		ys = d1
 	elif num == 2:
@@ -65,7 +67,8 @@ def plot_data(name,num):
 	axis.set_xlabel("Date")
 	axis.grid(True)
 	xs = range(len(date))
-	axis.plot(xs,ys)
+	axis.plot_date(date,ys)
+	fig.autofmt_xdate()
 	canvas = FigureCanvas(fig)
 	output = io.BytesIO()
 	canvas.print_png(output)
