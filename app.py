@@ -38,7 +38,7 @@ def device(name):
 	return render_template("device.html",device=name)
 
 # Plotting Data 1 for Device 
-@app.route('/plot/<name>_d<num>')
+@app.route('/plot/<name>_d<int:num>')
 def plot_data(name,num):
 	cdir = os.getcwd()
 	try:
@@ -61,7 +61,7 @@ def plot_data(name,num):
 
 	fig = Figure()
 	axis = fig.add_subplot(1, 1, 1)
-	axis.set_title("Data 1 for %s" % name)
+	axis.set_title("Data %d for %s" % (num,name))
 	axis.set_xlabel("Date")
 	axis.grid(True)
 	xs = range(len(date))
