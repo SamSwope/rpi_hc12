@@ -2,7 +2,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import io
 import os
-from flask import Flask, render_template, send_file, make_response, request, abort, url_for
+from flask import Flask, render_template, send_file, make_response, request, abort, url_for, Markup
 import sqlite3
 
 
@@ -30,7 +30,13 @@ app = Flask(__name__)
 # Default Entry (index.html)
 @app.route('/')
 def index():
-    return render_template("index.html")
+	f = open("whitelist.txt")
+	ret = ""
+	for device in f.readlines():
+		device = device.rstrip()
+		s = "<a href=\"device_%s.html\">%s</a><br>" % (device, device)
+		ret = ret + Markup(s)
+	return render_template("index.html", text=ret)
 
 # Dynamic access to each device 
 @app.route('/device_<name>.html')
